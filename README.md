@@ -27,8 +27,6 @@
 4. Generate .env file
    ```bash
    cp .env.example .env
-   
-   DATABASE_URL="mysql://root:secret@db:3306/app?serverVersion=8&charset=utf8mb4"
     ```
 
 5. Make sure to set these variables in the .env file
