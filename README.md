@@ -71,3 +71,9 @@
         ```bash
         php artisan test
         ```
+   
+    3. Run the job to send the email:
+
+       ```bash
+       php artisan queue:work
+       ```
