@@ -32,10 +32,11 @@
 5. Make sure to set these variables in the .env file
 
     ```bash
-   NASDAQ_LISTED_JSON_URL= 
-   RAPID_API_URL=
+   NASDAQ_LISTED_JSON_URL=https://pkgstore.datahub.io/core/nasdaq-listings/nasdaq-listed_json/data/a5bc7580d6176d60ac0b2142ca8d7df6/nasdaq-listed_json.json
+   
+   RAPID_API_URL=https://yh-finance.p.rapidapi.com
+   RAPID_API_HOST=yh-finance.p.rapidapi.com
    RAPID_API_KEY=
-   RAPID_API_HOST=
    
    QUEUE_CONNECTION=redis
    
