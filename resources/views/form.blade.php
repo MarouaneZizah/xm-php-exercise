@@ -77,9 +77,9 @@
                         name="symbol"
                     >
                         <option>Choose a symbol</option>
-                        @foreach($companies as $company)
-                            <option value="{{$company->symbol}}" @if(old('symbol') === $company->symbol) selected @endif>
-                                {{$company->symbol}} - {{$company->name}}
+                        @foreach($companies as $symbol => $companyName)
+                            <option value="{{ $symbol }}" @if(old('symbol') === $symbol) selected @endif>
+                                {{ $symbol }} - {{ $companyName }}
                             </option>
                         @endforeach
                     </select>

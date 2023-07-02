@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Carbon\Carbon;
 use Tests\TestCase;
+use App\Models\Company;
 use App\Jobs\SendQuoteJob;
 use App\Services\RapidApiClient;
 use Illuminate\Support\Facades\Http;
@@ -26,6 +27,16 @@ class FormTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
+    }
+
+    public function test_company_symbols_are_cached()
+    {
+        $companies = Company::all()->pluck('name', 'symbol')->toArray();
+
+        $this->get('/');
+
+        $this->assertNotNull(cache('companies'));
+        $this->assertEquals(cache('companies'), $companies);
     }
 
     /**

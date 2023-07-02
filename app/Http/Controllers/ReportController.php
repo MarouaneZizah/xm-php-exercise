@@ -11,7 +11,7 @@ class ReportController extends Controller
 {
     public function getForm()
     {
-        $companies = Company::all();
+        $companies = Company::list();
 
         return view('form', compact('companies'));
     }
