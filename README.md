@@ -66,13 +66,19 @@
        composer install
        ```
 
-    2. Run the following command to run the tests:
+   2. Generare the application key:
+
+      ```bash
+      php artisan key:generate
+        ```
+
+   3. Run the following command to run the tests:
 
         ```bash
         php artisan test
         ```
    
-    3. Run the job to send the email:
+   4. Run the job to send the email:
 
        ```bash
        php artisan queue:work
