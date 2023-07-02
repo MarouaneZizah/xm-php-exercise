@@ -32,26 +32,12 @@
 5. Make sure to set these variables in the .env file
 
     ```bash
-   NASDAQ_LISTED_JSON_URL=https://pkgstore.datahub.io/core/nasdaq-listings/nasdaq-listed_json/data/a5bc7580d6176d60ac0b2142ca8d7df6/nasdaq-listed_json.json
-   
-   RAPID_API_URL=https://yh-finance.p.rapidapi.com
-   RAPID_API_HOST=yh-finance.p.rapidapi.com
    RAPID_API_KEY=
    
-   QUEUE_CONNECTION=redis
-   
-   REDIS_HOST=redis
-   REDIS_PASSWORD=
-   REDIS_PORT=6379
-   
-   MAIL_MAILER=smtp
    MAIL_HOST=
    MAIL_PORT=
    MAIL_USERNAME=
    MAIL_PASSWORD=
-   MAIL_ENCRYPTION=tls
-   MAIL_FROM_ADDRESS="hello@xm.com"
-   MAIL_FROM_NAME="${APP_NAME}"
     ```
 
 6. Enter the app container
@@ -72,13 +58,24 @@
       php artisan key:generate
         ```
 
-   3. Run the following command to run the tests:
+   3. Run the migrations:
+
+      ```bash
+      php artisan migrate
+        ```
+   4. Import the Nasdaq listing data:
+
+      ```bash
+      php artisan app:import-companies
+        ```
+      
+   5. Run the following command to run the tests:
 
         ```bash
         php artisan test
         ```
    
-   4. Run the job to send the email:
+   6. Run the job to send the email:
 
        ```bash
        php artisan queue:work

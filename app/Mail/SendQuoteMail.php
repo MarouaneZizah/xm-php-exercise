@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Company;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -17,7 +18,7 @@ class SendQuoteMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public array $quotes, public string $symbol, public string $startDate, public string $endDate)
+    public function __construct(public array $quotes, public Company $company, public string $startDate, public string $endDate)
     {
 
     }
@@ -28,7 +29,7 @@ class SendQuoteMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: "$this->symbol Historical Quotes",
+            subject: "{$this->company->name} Historical Quotes",
         );
     }
 

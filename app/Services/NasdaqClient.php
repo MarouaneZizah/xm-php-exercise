@@ -3,22 +3,15 @@
 namespace App\Services;
 
 use Exception;
+use App\Models\Company;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cache;
 
 class NasdaqClient
 {
-    public function getListings()
-    {
-        return Cache::remember('nasdaq_list', 3600, function () {
-            return $this->getNasdaqListedJson();
-        });
-    }
-
     /**
      * @throws Exception
      */
-    private function getNasdaqListedJson(): array
+    public function getCompanies(): array
     {
         $response = Http::get($this->getBaseUrl());
 

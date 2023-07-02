@@ -7,20 +7,22 @@ use Tests\TestCase;
 use App\Jobs\SendQuoteJob;
 use App\Services\RapidApiClient;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Facades\Artisan;
 
 class FormTest extends TestCase
 {
-    public function test_the_index_page_returns_a_successful_response(): void
+    protected function setUp(): void
     {
+        parent::setUp();
+
         Http::fake(['*' => Http::response($this->getJSONFixture('company-listings.json'), 200, ['Headers'])]);
 
-        Cache::shouldReceive('remember')
-            ->once()
-            ->with('nasdaq_list', 3600, \Closure::class)
-            ->andReturn($this->getJSONFixture('company-listings-cached.json'));
+        Artisan::call('app:import-companies');
+    }
 
+    public function test_the_index_page_returns_a_successful_response(): void
+    {
         $response = $this->get('/');
 
         $response->assertStatus(200);
@@ -31,12 +33,6 @@ class FormTest extends TestCase
      */
     public function testFormValidation($formData, $expectedErrors)
     {
-        Http::fake(['*' => Http::response($this->getJSONFixture('company-listings.json'), 200, ['Headers'])]);
-
-        Cache::shouldReceive('remember')
-            ->with('nasdaq_list', 3600, \Closure::class)
-            ->andReturn($this->getJSONFixture('company-listings-cached.json'));
-
         $response = $this->post('/historical-quotes', $formData);
 
         $response->assertStatus(302)->assertSessionHasErrors($expectedErrors);
@@ -126,11 +122,6 @@ class FormTest extends TestCase
 
         $mockQuotesService = $this->mock(RapidApiClient::class);
         $mockQuotesService->shouldReceive('getHistoricalData')->once()->andReturn($quotes);
-
-        Cache::shouldReceive('remember')
-            ->once()
-            ->with('nasdaq_list', 3600, \Closure::class)
-            ->andReturn($this->getJSONFixture('company-listings-cached.json'));
 
         $symbol     = 'AAPL';
         $start_date = '06/01/2023';

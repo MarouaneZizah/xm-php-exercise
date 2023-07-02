@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\ValidSymbol;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
@@ -27,7 +26,7 @@ class HistoricalQuotesRequest extends FormRequest
             'email'      => 'required|email',
             'start-date' => 'required|date|before_or_equal:end-date|before_or_equal:today|date_format:m/d/Y',
             'end-date'   => 'required|date|after:start-date|before_or_equal:today|date_format:m/d/Y',
-            'symbol'     => ['required', 'string', new ValidSymbol]
+            'symbol'     => 'required|string|exists:companies,symbol',
         ];
     }
 }

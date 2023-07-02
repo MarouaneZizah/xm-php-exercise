@@ -41,7 +41,7 @@
 </head>
 <body>
 
-<h1>{{$symbol}} Historical Quotes From {{$startDate}} to {{$endDate}}</h1>
+<h1>{{$company->symbol}} Historical Quotes From {{$startDate}} to {{$endDate}}</h1>
 
 <table>
     <thead>

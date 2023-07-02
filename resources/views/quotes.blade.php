@@ -4,7 +4,7 @@
     <div class="container mx-auto px-4 py-8">
 
         <div class="grid grid-cols-2 gap-4">
-            <h1 class="text-2xl font-bold mb-4">"{{$symbol}}" Historical Quotes</h1>
+            <h1 class="text-2xl font-bold mb-4">"{{$company->symbol}}" Historical Quotes</h1>
 
             <div class="flex justify-end">
                 <a href="{{url('/')}}" class="bg-blue-500 text-white px-4 py-2 rounded flex items-center">Back to Search</a>

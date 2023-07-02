@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Company;
 use App\Mail\SendQuoteMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
@@ -18,7 +19,7 @@ class SendQuoteJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(public string $email, public array $quotes, public string $symbol, public string $startDate, public string $endDate)
+    public function __construct(public string $email, public array $quotes, public Company $company, public string $startDate, public string $endDate)
     {
 
     }
@@ -28,6 +29,6 @@ class SendQuoteJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->email)->send(new SendQuoteMail($this->quotes, $this->symbol, $this->startDate, $this->endDate));
+        Mail::to($this->email)->send(new SendQuoteMail($this->quotes, $this->company, $this->startDate, $this->endDate));
     }
 }

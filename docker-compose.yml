@@ -36,6 +36,40 @@ services:
         networks:
             - app-network
 
+    #MySQL Service
+    db:
+        image: mysql:5.7.22
+        container_name: db
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: laravel
+            MYSQL_ROOT_PASSWORD: secret
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        volumes:
+            - dbdata:/var/lib/mysql/
+            - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+        networks:
+            - app-network
+
+    #phpMyAdmin Service
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        restart: unless-stopped
+        ports:
+            - "8081:80"
+        environment:
+            PMA_HOST: db
+            MYSQL_ROOT_PASSWORD: secret
+        depends_on:
+            - db
+        networks:
+            - app-network
+
     #redis Service
     redis:
         image: redis:4.0
@@ -49,3 +83,8 @@ services:
 networks:
     app-network:
         driver: bridge
+
+#Volumes
+volumes:
+    dbdata:
+        driver: local
