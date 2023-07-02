@@ -52,7 +52,7 @@
        composer install
        ```
 
-   2. Generare the application key:
+   2. Generate the application key:
 
       ```bash
       php artisan key:generate
@@ -63,19 +63,19 @@
       ```bash
       php artisan migrate
         ```
-   4. Import the Nasdaq listing data:
+   4. Import the Nasdaq listing data from the API:
 
       ```bash
       php artisan app:import-companies
         ```
       
-   5. Run the following command to run the tests:
+   5. Run the test suite:
 
         ```bash
         php artisan test
         ```
    
-   6. Run the job to send the email:
+   6. Launch the queue worker to send the emails:
 
        ```bash
        php artisan queue:work
